@@ -1,5 +1,6 @@
 package ru.safronova.skills.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@UserDefinedType("languages") // указыввем, в какой таблице будут хранится сущности
+//@UserDefinedType("languages") // указыввем, в какой таблице будут хранится сущности
 @Table("languages") // save data in this table
+@AllArgsConstructor
 public class Language {
     @Id
     @PrimaryKeyColumn(
@@ -29,13 +31,9 @@ public class Language {
     @Setter
     private String title;
 
-    @Column
-    @Getter
-    @Setter
-    private String description;
-
     @CassandraType(type = CassandraType.Name.LIST, typeArguments = {CassandraType.Name.UDT}, userTypeName = "skills")
     @Getter
     @Setter
     private List<Skill> skillList;
+
 }
