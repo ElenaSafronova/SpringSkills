@@ -1,13 +1,14 @@
-package ru.safronova.SpringSkills;
+package ru.safronova.skills;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSkillsApplication {
+public class SkillsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSkillsApplication.class, args);
+
+		SpringApplication.run(SkillsApplication.class, args);
 	}
 
 }
