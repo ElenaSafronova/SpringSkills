@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-//@UserDefinedType("languages") // указыввем, в какой таблице будут хранится сущности
+@UserDefinedType("languages") // указыввем, в какой таблице будут хранится сущности
 @Table("languages") // save data in this table
 @AllArgsConstructor
 public class Language {
