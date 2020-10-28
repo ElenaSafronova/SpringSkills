@@ -76,7 +76,7 @@ console.log("Hello JS"); - вывод в консоль
 
         $scope.getProgrammer = function() {
             $http({
-                url: '/programmers/3',
+                url: '/programmers/3', <!--  url: '/programmers/' + $scope.prog.id -->
                 method: 'GET'
             }).then(function (response) {
                 console.log(response);
