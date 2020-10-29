@@ -21,13 +21,14 @@ public class VacanciesService {
 
     public Vacancies getAllVacancies(SearchParametersVacancy params) {
         String url = hhApi + "/?per_page=20";
-        if (Strings.isNotBlank(params.getName()))  url += "&text=" + params.getName() + "&search_field=name";
-        if (Strings.isNotBlank(params.getSpecializationId()))  url += "&specialization=" + params.getSpecializationId();
-        if (Strings.isNotBlank(params.getEmploymentId()))  url += "&employment=" + params.getEmploymentId();
-        if (Strings.isNotBlank(params.getExperienceId()))  url += "&experience=" + params.getExperienceId();
-        if (Strings.isNotBlank(params.getScheduleId()))  url += "&schedule=" + params.getScheduleId();
-        if (Objects.nonNull(params.getSalary()))  url += "&salary=" + params.getSalary();
-        if (Objects.nonNull(params.getPage()))  url += "&page=" + params.getPage();
+//        if (Strings.isNotBlank(params.getName()))  url += "&text=" + params.getName() + "&search_field=name";
+//        if (Strings.isNotBlank(params.getSpecializationId()))  url += "&specialization=" + params.getSpecializationId();
+//        if (Strings.isNotBlank(params.getEmploymentId()))  url += "&employment=" + params.getEmploymentId();
+//        if (Strings.isNotBlank(params.getExperienceId()))  url += "&experience=" + params.getExperienceId();
+//        if (Strings.isNotBlank(params.getScheduleId()))  url += "&schedule=" + params.getScheduleId();
+//        if (Objects.nonNull(params.getSalary()))  url += "&salary=" + params.getSalary();
+//        if (Objects.nonNull(params.getPage()))  url += "&page=" + params.getPage();
+//        return restTemplate.getForEntity(url, Vacancies.class).getBody();
         return restTemplate.getForEntity(url, Vacancies.class).getBody();
     }
 
