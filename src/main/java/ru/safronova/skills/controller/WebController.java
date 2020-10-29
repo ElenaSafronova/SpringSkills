@@ -34,8 +34,11 @@ public class WebController {
         return "language";
     }
 
-    @GetMapping("/vacancies")
+    @GetMapping("/vacancies/front")
     public String vacancies(){
-        return "vacancies";
+        return "vacanciesFront";
     }
+
+    @GetMapping("/vacancies/back")
+    public String vacanciesBack(){return  "vacanciesBack";}
 }

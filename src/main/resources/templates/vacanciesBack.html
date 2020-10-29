@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vacancies</title>
+    <title>Vacancies-back-end</title>
 
     <meta name="viewport" content="wide=device-width, initial-scale=1.0"> <!-- подогнать ширну страницы под  device-width  -->
 
@@ -25,75 +25,45 @@
     app.controller("vacanciesCtrl", function($scope, $http){
         $scope.searchFields = {
             name: "",
-            specialization: "",
-            employment: "",
-            experience: "",
-            schedule: "",
+            specializationId: "",
+            employmentId: "",
+            experienceId: "",
+            scheduleId: "",
             salary: "",
             page: 0
         };
 
         $scope.vacancies = [];
 
-        $scope.request = 'https://api.hh.ru/vacancies/?per_page=20';
+        $scope.request = 'http://localhost:8080/vacancies';
+        console.log($scope.request);
+        console.log($scope.searchFields);
 
-        $scope.getVacancies = function(){
+        $scope.getVacancies = function() {
+
             $http({
                 url: $scope.request,
-                method: 'GET'
+                method: 'POST',
+                data: $scope.searchFields
             }).then(function(response){
-                $scope.vacancies = response.data.items;
+                $scope.vacancies = response.data;
                 console.log($scope.vacancies);
             })
         }
         $scope.getVacancies();
 
-
-        $scope.createRequest = function() {
-            $scope.request = 'https://api.hh.ru/vacancies/?per_page=20';
-
-            if ($scope.searchFields.name !== ""){
-                $scope.request += '&text=' + $scope.searchFields.name + '&search_field=name';
-            }
-            if ($scope.searchFields.specialization !== ""){
-                $scope.request += '&specialization=' + $scope.searchFields.specialization;
-            }
-            if ($scope.searchFields.employment !== ""){
-                $scope.request += '&employment=' + $scope.searchFields.employment;
-            }
-            if ($scope.searchFields.experience !== ""){
-                $scope.request += '&experience=' + $scope.searchFields.experience;
-            }
-            if ($scope.searchFields.schedule !== "") $scope.request += '&schedule=' + $scope.searchFields.schedule;
-            if ($scope.searchFields.salary !== "") $scope.request += '&salary=' + $scope.searchFields.salary;
-
+        $scope.nextPage = function() {
+            $scope.searchFields.page += 1;
             $scope.getVacancies();
             console.log($scope.request);
         }
 
-        $scope.nextPage = function(){
-           $scope.searchFields.page += 1;
-           $scope.requestTemp = $scope.request;
-           $scope.request += '&page=' + $scope.searchFields.page;
-
-           $scope.getVacancies();
-
-           console.log($scope.request);
-           $scope.request = $scope.requestTemp;
-        }
-
-        $scope.prevPage = function(){
+        $scope.prevPage = function() {
             if ($scope.searchFields.page > 0) $scope.searchFields.page -= 1;
-            $scope.requestTemp = $scope.request;
-            $scope.request += '&page=' + $scope.searchFields.page;
-
             $scope.getVacancies();
-
             console.log($scope.request);
-            $scope.request = $scope.requestTemp;
         }
-
-    })
+    });
 
 </script>
 
@@ -131,12 +101,12 @@
 
         <div class="column col-3">
             <div>
-                <h4>Название вакансии</h4>
-                <input type="text" placeholder="Название вакансии" ng-model="searchFields.name">
+                <h5>Название вакансии</h5>
+                <input style="width:250px;" type="text" placeholder="Название вакансии" ng-model="searchFields.name">
             </div>
             <div>
-                <h4>Специализация</h4>
-                <select class="style-select" ng-model="searchFields.specialization">
+                <h5>Специализация</h5>
+                <select class="style-select" style="width:250px;" ng-model="searchFields.specialization">
                     <option value="1.395">Банковское ПО</option>
                     <option value="1.400">Оптимизация сайта (SEO)</option>
                     <option value="1.420">Администратор баз данных</option>
@@ -146,8 +116,8 @@
                 </select>
             </div>
             <div>
-                <h4>Тип занятости</h4>
-                <select class="style-select" ng-model="searchFields.employment">
+                <h5>Тип занятости</h5>
+                <select class="style-select" style="width:250px;" ng-model="searchFields.employment">
                     <option value="full">Полная занятость</option>
                     <option value="part">Частичная занятость</option>
                     <option value="project">Проектная работа</option>
@@ -156,8 +126,8 @@
                 </select>
             </div>
             <div>
-                <h4>Опыт работы</h4>
-                <select class="style-select" ng-model="searchFields.experience">
+                <h5>Опыт работы</h5>
+                <select class="style-select" style="width:250px;" ng-model="searchFields.experience">
                     <option value="noExperience">Нет опыта</option>
                     <option value="between1And3">От 1 года до 3 лет</option>
                     <option value="between3And6">От 3 до 6 лет</option>
@@ -165,8 +135,8 @@
                 </select>
             </div>
             <div>
-                <h4>График работы</h4>
-                <select class="style-select" ng-model="searchFields.schedule">
+                <h5>График работы</h5>
+                <select class="style-select" style="width:250px;" ng-model="searchFields.schedule">
                     <option value="fullDay">Полный день</option>
                     <option value="shift">Сменный график</option>
                     <option value="flexible">Гибкий график</option>
@@ -175,20 +145,19 @@
                 </select>
             </div>
             <div>
-                <h4>Зарплата</h4>
-                <input type="text" placeholder="Зарплата" ng-model="searchFields.salary">
+                <h5>Зарплата</h5>
+                <input style="width:250px;" type="text" placeholder="Зарплата" ng-model="searchFields.salary">
             </div>
 
-            <div>
-                <div class="btn btn-success" ng-click="createRequest()">Принять</div>
-                <div class="btn btn-primary" ng-click="nextPage()">След.</div>
-                <div class="btn btn-primary" ng-click="prevPage()">Пред.</div>
+            <div class="row" style="padding-top: 20px; padding-left: 18px;" >
+                <div class="btn btn-success" style="width:250px;" ng-click="createRequest()">Принять</div>
+            </div>
+            <div class="row" style="padding-top: 50px; padding-left: 18px;" >
+                <div class="btn btn-primary" style="width:125px;" ng-click="prevPage()">Пред.</div>
+                <div class="btn btn-primary" style="width:125px;" ng-click="nextPage()">След.</div>
             </div>
         </div>
     </div>
-
-    <h1>hello</h1>
-    <h2>WE are Стас AND COCOS = cocosostas or stasococos </h2>
 
 </body>
 </html>
