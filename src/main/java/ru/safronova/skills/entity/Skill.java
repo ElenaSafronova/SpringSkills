@@ -1,5 +1,6 @@
 package ru.safronova.skills.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import org.springframework.data.cassandra.core.mapping.UserDefinedType;
 
 @UserDefinedType("skills")
 @Table("skills")
+@AllArgsConstructor
 public class Skill {
     @Id
     @PrimaryKeyColumn(
@@ -33,4 +35,6 @@ public class Skill {
     @Getter
     @Setter
     private String description;
+
+
 }
